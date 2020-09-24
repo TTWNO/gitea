@@ -24,6 +24,7 @@ const (
 // Repository settings
 var (
 	Repository = struct {
+    AdminPushAll                            bool
 		DetectedCharsetsOrder                   []string
 		DetectedCharsetScore                    map[string]int `ini:"-"`
 		AnsiCharset                             string
@@ -128,6 +129,7 @@ var (
 			"IBM420_rtl",
 			"IBM420_ltr",
 		},
+    AdminPushAll:                            true,
 		DetectedCharsetScore:                    map[string]int{},
 		AnsiCharset:                             "",
 		ForcePrivate:                            false,

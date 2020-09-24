@@ -10,6 +10,7 @@ import (
 	"code.gitea.io/gitea/models"
 	"code.gitea.io/gitea/modules/log"
 	"code.gitea.io/gitea/modules/notification"
+  "code.gitea.io/gitea/modules/setting"
 	repo_module "code.gitea.io/gitea/modules/repository"
 	pull_service "code.gitea.io/gitea/services/pull"
 )
@@ -65,7 +66,7 @@ func DeleteRepository(doer *models.User, repo *models.Repository) error {
 
 // PushCreateRepo creates a repository when a new repository is pushed to an appropriate namespace
 func PushCreateRepo(authUser, owner *models.User, repoName string) (*models.Repository, error) {
-	if !authUser.IsAdmin {
+	if !authUser.IsAdmin || !setting.Repository.AdminPushAll {
 		if owner.IsOrganization() {
 			if ok, err := owner.CanCreateOrgRepo(authUser.ID); err != nil {
 				return nil, err
